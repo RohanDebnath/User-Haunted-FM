@@ -9,6 +9,7 @@ public class Playlist implements Parcelable {
     private String name;
     private String description;
     private Drawable imageDrawable;
+    private String id;
     public Playlist() {
         // Default constructor required for Firestore deserialization
     }
@@ -75,5 +76,13 @@ public class Playlist implements Parcelable {
 
     public void setImageDrawable(Drawable imageDrawable) {
         this.imageDrawable = imageDrawable;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

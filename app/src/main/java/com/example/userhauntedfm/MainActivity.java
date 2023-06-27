@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
             Intent intent = new Intent(MainActivity.this, SongFetch.class);
             intent.putExtra("playlist", playlist);
+            intent.putExtra("playlistId", playlist.getId());
             startActivity(intent);
         });
     }
