@@ -1,5 +1,6 @@
 package com.example.userhauntedfm;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -58,5 +59,14 @@ public class MainActivity extends AppCompatActivity {
                         Log.e("MainActivity", "Error fetching playlists: " + task.getException());
                     }
                 });
+
+        playlistAdapter.setOnItemClickListener(position -> {
+            Playlist playlist = playlistList.get(position);
+
+            Intent intent = new Intent(MainActivity.this, SongFetch.class);
+            intent.putExtra("playlist", playlist);
+            startActivity(intent);
+        });
     }
+
 }

@@ -1,5 +1,6 @@
 package com.example.userhauntedfm;
 
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,16 +17,31 @@ import java.util.List;
 public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.PlaylistViewHolder> {
 
     private List<Playlist> playlistList;
+    private OnItemClickListener clickListener;
+
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
 
     public PlaylistAdapter(List<Playlist> playlistList) {
         this.playlistList = playlistList;
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.clickListener = listener;
+    }
+
+    public void setPlaylistImage(int position, Drawable image) {
+        Playlist playlist = playlistList.get(position);
+        playlist.setImageDrawable(image);
+        notifyItemChanged(position);
     }
 
     @NonNull
     @Override
     public PlaylistViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_playlist_user, parent, false);
-        return new PlaylistViewHolder(view);
+        return new PlaylistViewHolder(view, clickListener);
     }
 
     @Override
@@ -49,16 +65,28 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.Playli
 
     public static class PlaylistViewHolder extends RecyclerView.ViewHolder {
 
-        public ImageView playlistImageView;
         public TextView playlistNameTextView;
         public TextView playlistDescriptionTextView;
+        public ImageView playlistImageView;
 
-        public PlaylistViewHolder(@NonNull View itemView) {
+        public PlaylistViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);
 
-            playlistImageView = itemView.findViewById(R.id.playlistImageView);
             playlistNameTextView = itemView.findViewById(R.id.playlistNameTextView);
             playlistDescriptionTextView = itemView.findViewById(R.id.playlistDescriptionTextView);
+            playlistImageView = itemView.findViewById(R.id.playlistImageView);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.onItemClick(position);
+                        }
+                    }
+                }
+            });
         }
     }
 }
