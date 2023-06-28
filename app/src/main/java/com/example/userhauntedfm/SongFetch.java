@@ -19,7 +19,6 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
-
 public class SongFetch extends AppCompatActivity {
 
     private ImageView imageViewPlaylist;
@@ -44,7 +43,7 @@ public class SongFetch extends AppCompatActivity {
         selectedPlaylistId = getIntent().getStringExtra("playlistId");
         recyclerView = findViewById(R.id.playlistRecyclerView2);
         audioItems = new ArrayList<>();
-        audioAdapter = new AudioAdapter(this, audioItems);
+        audioAdapter = new AudioAdapter(this, audioItems, selectedPlaylistId); // Pass the selectedPlaylistId
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(audioAdapter);
         firebaseFirestore = FirebaseFirestore.getInstance();
@@ -75,4 +74,5 @@ public class SongFetch extends AppCompatActivity {
                         // Handle failure
                     });
         }
-    }}
+    }
+}
