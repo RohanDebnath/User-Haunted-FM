@@ -8,14 +8,17 @@
     android:padding="16dp">
 
     <EditText
+        android:background="@drawable/custom_edittext"
+        android:drawableRight="@drawable/baseline_search_24"
         android:id="@+id/searchEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Search"
         android:imeOptions="actionSearch"
         android:inputType="text"
-        android:maxLines="1"
         android:singleLine="true"
+        android:padding="8dp"
+        android:layout_margin="8dp"
         android:textColor="@android:color/black" />
 
     <androidx.recyclerview.widget.RecyclerView
