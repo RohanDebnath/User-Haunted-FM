@@ -14,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.IOException;
-
 public class AudioPlayerActivity extends AppCompatActivity {
 
     private MediaPlayer mediaPlayer;
@@ -38,7 +37,6 @@ public class AudioPlayerActivity extends AppCompatActivity {
         TextView audioNameTextView = findViewById(R.id.audioNameTextView);
         TextView audioDescriptionTextView = findViewById(R.id.audioDescriptionTextView);
 
-
         audioItemId = getIntent().getStringExtra("audioItemId");
         audioName = getIntent().getStringExtra("audioName");
         audioDescription = getIntent().getStringExtra("audioDescription");
@@ -55,8 +53,10 @@ public class AudioPlayerActivity extends AppCompatActivity {
         playPauseButton.setOnClickListener(v -> {
             if (mediaPlayer.isPlaying()) {
                 mediaPlayer.pause();
+                playPauseButton.setImageResource(R.drawable.baseline_play_arrow_24);
             } else {
                 mediaPlayer.start();
+                playPauseButton.setImageResource(R.drawable.baseline_pause_circle_24);
                 updateSeekBar();
             }
         });
@@ -97,11 +97,10 @@ public class AudioPlayerActivity extends AppCompatActivity {
         handler.removeCallbacks(runnable);
     }
 
-
     private void fetchAudioUrl() {
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
         firestore.collection("playlists")
-                .document(playlistId) // Replace with the actual playlist ID
+                .document(playlistId)
                 .collection("audioFiles")
                 .document(audioItemId)
                 .get()
@@ -111,6 +110,10 @@ public class AudioPlayerActivity extends AppCompatActivity {
                         try {
                             mediaPlayer.setDataSource(audioUrl);
                             mediaPlayer.prepareAsync();
+                            mediaPlayer.setOnPreparedListener(mp -> {
+                                // Set the seek bar duration based on the media player
+                                seekBar.setMax(mp.getDuration());
+                            });
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -123,7 +126,12 @@ public class AudioPlayerActivity extends AppCompatActivity {
 
     private void updateSeekBar() {
         seekBar.setProgress(mediaPlayer.getCurrentPosition());
-        runnable = this::updateSeekBar;
+        runnable = new Runnable() {
+            @Override
+            public void run() {
+                 updateSeekBar();
+            }
+        };
         handler.postDelayed(runnable, 1000);
     }
 }
