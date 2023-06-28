@@ -5,13 +5,34 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/background"
     android:padding="16dp">
+    <TextView
+        android:padding="8dp"
+        android:layout_margin="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="bold"
+ />    <TextView
+    android:paddingStart="8dp"
+    android:layout_marginStart="8dp"
+        android:id="@+id/welcomeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rohan Debnath"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="bold"
+ />
 
     <EditText
         android:background="@drawable/custom_edittext"
         android:drawableRight="@drawable/baseline_search_24"
         android:id="@+id/searchEditText"
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:hint="Search"
         android:imeOptions="actionSearch"
@@ -22,6 +43,8 @@
         android:textColor="@android:color/black" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:padding="12dp"
+        android:layout_marginTop="40dp"
         android:id="@+id/playlistRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
