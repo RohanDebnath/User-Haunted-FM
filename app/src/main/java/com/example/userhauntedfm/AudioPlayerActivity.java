@@ -4,18 +4,16 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
+
 public class AudioPlayerActivity extends AppCompatActivity {
 
     private MediaPlayer mediaPlayer;
@@ -43,7 +41,6 @@ public class AudioPlayerActivity extends AppCompatActivity {
         audioName = getIntent().getStringExtra("audioName");
         audioDescription = getIntent().getStringExtra("audioDescription");
         playlistId = getIntent().getStringExtra("playlistId");
-
 
         audioNameTextView.setText(audioName);
         audioDescriptionTextView.setText(audioDescription);
@@ -116,6 +113,7 @@ public class AudioPlayerActivity extends AppCompatActivity {
                             mediaPlayer.setOnPreparedListener(mp -> {
                                 // Set the seek bar duration based on the media player
                                 seekBar.setMax(mp.getDuration());
+                                updateSeekBar(); // Start updating seek bar progress
                             });
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -128,13 +126,15 @@ public class AudioPlayerActivity extends AppCompatActivity {
     }
 
     private void updateSeekBar() {
-        seekBar.setProgress(mediaPlayer.getCurrentPosition());
-        runnable = new Runnable() {
-            @Override
-            public void run() {
-                 updateSeekBar();
-            }
-        };
-        handler.postDelayed(runnable, 1000);
+        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+            seekBar.setProgress(mediaPlayer.getCurrentPosition());
+            runnable = new Runnable() {
+                @Override
+                public void run() {
+                    updateSeekBar();
+                }
+            };
+            handler.postDelayed(runnable, 1000);
+        }
     }
 }
