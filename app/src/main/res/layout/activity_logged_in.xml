@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoggedInActivity"
+    android:orientation="vertical"
+    android:background="@drawable/background"
+    android:padding="16dp">
+    <TextView
+        android:padding="8dp"
+        android:layout_margin="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        />
+    <TextView
+    android:paddingStart="8dp"
+    android:layout_marginStart="8dp"
+    android:id="@+id/welcomeTextView"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textColor="@color/black"
+    android:textSize="24sp"
+    android:textStyle="bold"
+    />
+
+    <EditText
+        android:background="@drawable/custom_edittext"
+        android:drawableRight="@drawable/baseline_search_24"
+        android:id="@+id/searchEditText"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:hint="Search"
+        android:imeOptions="actionSearch"
+        android:inputType="text"
+        android:singleLine="true"
+        android:padding="8dp"
+        android:layout_margin="8dp"
+        android:textColor="@android:color/black" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:padding="12dp"
+        android:layout_marginTop="40dp"
+        android:id="@+id/playlistRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="450dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_playlist_user" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        android:layout_margin="8dp">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/white"
+            android:drawableLeft="@drawable/baseline_home_24"
+            android:elevation="90dp"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/white"
+            android:drawableLeft="@drawable/baseline_person_24"
+            android:elevation="90dp"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/white"
+            android:drawableLeft="@drawable/baseline_settings_24"
+            android:elevation="90dp"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+        <Button
+            android:id="@+id/logoutBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/white"
+            android:drawableLeft="@drawable/baseline_logout_24"
+            android:elevation="90dp"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+
+</LinearLayout>
